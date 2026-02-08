@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const progressPercent = document.getElementById('progress-percent');
     const progressStatus = document.getElementById('progress-status');
     const successMainBlocks = document.querySelectorAll('.success-main');
+
+    // Tracks whether the secret cat easter egg has already been triggered
+    let catEasterEggTriggered = false;
     
     // ===== CONFIGURATION =====
     // Funny messages to display when hovering over the No button
@@ -355,6 +358,37 @@ document.addEventListener('DOMContentLoaded', function() {
         cat.style.animationDelay = `${delay}s`;
 
         document.body.appendChild(cat);
+
+        // Make the cat clickable for a tiny secret easter egg
+        cat.addEventListener('click', () => {
+            if (catEasterEggTriggered) return;
+            catEasterEggTriggered = true;
+
+            // Little excited pop for the cat
+            cat.classList.add('cat-surprised');
+
+            // Extra heart burst just for the cat touch
+            spawnMiniHearts(22);
+
+            // Cute secret note from the valentine cat
+            const note = document.createElement('div');
+            note.classList.add('cat-note');
+            note.innerHTML = '🐾 Secret kitty report:<br>Ffion pet the cat. Dean\'s heart fully melted.';
+
+            document.body.appendChild(note);
+
+            // Fade the note in and then back out
+            setTimeout(() => {
+                note.classList.add('visible');
+            }, 10);
+
+            setTimeout(() => {
+                note.classList.remove('visible');
+                setTimeout(() => {
+                    note.remove();
+                }, 500);
+            }, 3800);
+        });
 
         // Remove cat after a while so it doesn't stay forever
         setTimeout(() => {

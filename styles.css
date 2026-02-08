@@ -514,7 +514,7 @@ body::before {
     position: fixed;
     width: 140px;
     max-width: 40vw;
-    pointer-events: none;
+    pointer-events: auto;
     z-index: 1200;
     transform: translate(-50%, 0) scale(1);
     animation: catOrbit 4.2s ease-in-out infinite alternate;
@@ -536,6 +536,54 @@ body::before {
     100% {
         transform: translate(-50%, 0) scale(1.02) rotate(-4deg);
     }
+}
+
+/* Small pop animation when Ffion taps the cat */
+.dancing-cat.cat-surprised {
+    animation: catPop 0.5s ease-out 1, catOrbit 4.2s ease-in-out infinite alternate 0.5s;
+}
+
+@keyframes catPop {
+    0% {
+        transform: translate(-50%, 0) scale(1) rotate(0deg);
+    }
+    35% {
+        transform: translate(-52%, -18px) scale(1.18) rotate(8deg);
+    }
+    70% {
+        transform: translate(-48%, -8px) scale(1.08) rotate(-6deg);
+    }
+    100% {
+        transform: translate(-50%, 0) scale(1.03) rotate(2deg);
+    }
+}
+
+/* Secret cat easter-egg note */
+.cat-note {
+    position: fixed;
+    bottom: 26vh;
+    left: 50%;
+    transform: translateX(-50%) translateY(16px);
+    background: rgba(15, 15, 35, 0.96);
+    border-radius: 10px;
+    border: 1px solid rgba(189, 147, 249, 0.6);
+    padding: 12px 18px;
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1250;
+    text-align: center;
+    max-width: 260px;
+    line-height: 1.4;
+    transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+}
+
+.cat-note.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
