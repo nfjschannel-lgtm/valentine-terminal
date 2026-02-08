@@ -1,0 +1,451 @@
+/* ============================================
+   TERMINAL VALENTINE - STYLES
+   A nerdy, developer-themed Valentine's site
+   ============================================ */
+
+/* ===== CSS CUSTOM PROPERTIES (VARIABLES) ===== */
+/* These make it easy to change colors throughout the site */
+:root {
+    /* Color palette - Cyber pastel theme */
+    --bg-dark: #0f0f23;           /* Deep space blue background */
+    --bg-terminal: #1a1a2e;       /* Terminal window background */
+    --text-primary: #e0e0ff;      /* Soft white-blue for text */
+    --text-secondary: #a0a0c0;    /* Muted purple for secondary text */
+    --accent-pink: #ff6b9d;       /* Bright pink for love elements */
+    --accent-cyan: #00d9ff;       /* Cyber cyan for tech elements */
+    --accent-purple: #bd93f9;     /* Soft purple accent */
+    --accent-green: #50fa7b;      /* Success green */
+    --accent-red: #ff5555;        /* Error/No button red */
+    --terminal-green: #0f0;       /* Classic terminal green */
+    
+    /* Fonts */
+    --font-mono: 'Courier New', 'Consolas', monospace;
+    --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* ===== GLOBAL STYLES ===== */
+/* Reset default margins and set base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-main);
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Animated gradient background */
+    background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f1020 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle animated stars in background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 20% 30%, white, transparent),
+        radial-gradient(2px 2px at 60% 70%, white, transparent),
+        radial-gradient(1px 1px at 50% 50%, white, transparent),
+        radial-gradient(1px 1px at 80% 10%, white, transparent),
+        radial-gradient(2px 2px at 90% 60%, white, transparent);
+    background-size: 200% 200%;
+    animation: stars 20s ease-in-out infinite;
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+@keyframes stars {
+    0%, 100% { background-position: 0% 0%; }
+    50% { background-position: 100% 100%; }
+}
+
+/* ===== MAIN CONTAINER ===== */
+.container {
+    width: 90%;
+    max-width: 700px;
+    z-index: 10;
+    position: relative;
+}
+
+/* ===== TERMINAL WINDOW ===== */
+/* Mimics a real terminal/code editor window */
+.terminal-window {
+    background: var(--bg-terminal);
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(189, 147, 249, 0.1);
+    overflow: hidden;
+    border: 1px solid rgba(189, 147, 249, 0.2);
+}
+
+/* Terminal header bar with window controls */
+.terminal-header {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.terminal-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+/* Classic macOS-style window buttons */
+.terminal-buttons span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.btn-close { background: #ff5f56; }
+.btn-minimize { background: #ffbd2e; }
+.btn-maximize { background: #27c93f; }
+
+.terminal-title {
+    flex: 1;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* ===== TERMINAL BODY ===== */
+.terminal-body {
+    padding: 40px 30px;
+    font-family: var(--font-mono);
+    min-height: 400px;
+}
+
+/* ===== STATE MANAGEMENT ===== */
+/* States control what content is visible */
+.state {
+    display: none;
+    animation: fadeIn 0.5s ease-in;
+}
+
+.state.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== ASCII ART ===== */
+.ascii-art {
+    color: var(--accent-cyan);
+    font-size: 0.75rem;
+    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.success-art {
+    color: var(--accent-green);
+}
+
+/* ===== GLITCH TEXT EFFECT ===== */
+/* Creates a cool cyberpunk glitch effect on the main headline */
+.glitch {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    color: var(--accent-pink);
+    margin-bottom: 30px;
+    position: relative;
+    text-shadow: 
+        2px 2px 0 var(--accent-cyan),
+        -2px -2px 0 var(--accent-purple);
+}
+
+/* Optional: Uncomment for animated glitch effect */
+/* 
+.glitch:hover::before {
+    content: attr(data-text);
+    position: absolute;
+    left: 2px;
+    text-shadow: -2px 0 var(--accent-cyan);
+    top: 0;
+    color: var(--accent-pink);
+    overflow: hidden;
+    animation: glitch-anim 0.3s infinite;
+}
+
+@keyframes glitch-anim {
+    0% { clip-path: inset(40% 0 61% 0); }
+    20% { clip-path: inset(92% 0 1% 0); }
+    40% { clip-path: inset(43% 0 1% 0); }
+    60% { clip-path: inset(25% 0 58% 0); }
+    80% { clip-path: inset(54% 0 7% 0); }
+    100% { clip-path: inset(58% 0 43% 0); }
+}
+*/
+
+/* ===== TERMINAL TEXT LINES ===== */
+.terminal-text {
+    margin-bottom: 30px;
+}
+
+.terminal-line {
+    margin-bottom: 8px;
+}
+
+.prompt {
+    color: var(--accent-green);
+    font-weight: bold;
+}
+
+.command {
+    color: var(--accent-cyan);
+}
+
+.output {
+    color: var(--text-secondary);
+    margin-left: 20px;
+    margin-bottom: 5px;
+}
+
+.success-text {
+    color: var(--accent-green);
+    font-weight: bold;
+}
+
+/* Blinking cursor effect */
+.blinking-cursor::after {
+    content: '▊';
+    animation: blink 1s infinite;
+    margin-left: 5px;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+
+/* ===== QUESTION BOX ===== */
+.question-box {
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid var(--accent-pink);
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.question-box h2 {
+    font-size: 1.6rem;
+    color: var(--accent-pink);
+    margin-bottom: 10px;
+}
+
+.subtext {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+/* ===== BUTTONS ===== */
+.button-container {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.btn {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    padding: 15px 30px;
+    border: 2px solid;
+    border-radius: 8px;
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    position: relative;
+}
+
+/* Yes button styling */
+.btn-yes {
+    color: var(--accent-green);
+    border-color: var(--accent-green);
+}
+
+.btn-yes:hover {
+    background: var(--accent-green);
+    color: var(--bg-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(80, 250, 123, 0.3);
+}
+
+/* No button styling */
+.btn-no {
+    color: var(--accent-red);
+    border-color: var(--accent-red);
+}
+
+.btn-no:hover {
+    background: rgba(255, 85, 85, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(255, 85, 85, 0.2);
+}
+
+/* Shaking animation for No button */
+.btn-no.shake {
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+    20%, 40%, 60%, 80% { transform: translateX(10px); }
+}
+
+/* Moving away animation for No button */
+.btn-no.move-away {
+    animation: moveAway 0.3s forwards;
+}
+
+@keyframes moveAway {
+    to {
+        transform: translate(calc(var(--x) * 1px), calc(var(--y) * 1px));
+    }
+}
+
+/* ===== HOVER MESSAGES ===== */
+/* Fun messages that appear when hovering over No button */
+.hover-message {
+    text-align: center;
+    color: var(--accent-red);
+    font-size: 0.95rem;
+    min-height: 25px;
+    font-style: italic;
+}
+
+/* ===== SUCCESS STATE ===== */
+.success-message {
+    background: rgba(80, 250, 123, 0.1);
+    border: 2px solid var(--accent-green);
+    border-radius: 8px;
+    padding: 25px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.success-message h2 {
+    color: var(--accent-green);
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+.code-block {
+    background: rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    border-radius: 5px;
+    margin: 15px 0;
+    text-align: left;
+    overflow-x: auto;
+}
+
+.code-block code {
+    color: var(--accent-cyan);
+    font-size: 0.9rem;
+}
+
+.success-subtext {
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-top: 15px;
+}
+
+/* ===== BRIDGERTON / WHISTLEDOWN NOTES ===== */
+.bridgerton-note-intro {
+    font-family: "Georgia", "Times New Roman", serif;
+    font-style: italic;
+    color: var(--accent-pink);
+    margin-top: 15px;
+}
+
+.bridgerton-note {
+    font-family: "Georgia", "Times New Roman", serif;
+    font-style: italic;
+    color: var(--text-primary);
+    margin-top: 5px;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.footer a {
+    color: var(--accent-cyan);
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer a:hover {
+    color: var(--accent-pink);
+}
+
+.footer code {
+    color: var(--accent-purple);
+}
+
+/* ===== CONFETTI CANVAS ===== */
+/* Canvas for the celebration confetti effect */
+#confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+/* Adjustments for mobile devices */
+@media (max-width: 600px) {
+    .terminal-body {
+        padding: 30px 20px;
+    }
+    
+    .glitch {
+        font-size: 1.4rem;
+    }
+    
+    .question-box h2 {
+        font-size: 1.3rem;
+    }
+    
+    .button-container {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+    
+    .ascii-art {
+        font-size: 0.6rem;
+    }
+}

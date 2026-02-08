@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminal Valentine for Ffion 💻💖</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Main container holds everything centered on the page -->
+    <div class="container">
+        
+        <!-- Terminal window mockup -->
+        <div class="terminal-window">
+            
+            <!-- Terminal header with realistic window controls -->
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <span class="btn-close"></span>
+                    <span class="btn-minimize"></span>
+                    <span class="btn-maximize"></span>
+                </div>
+                <div class="terminal-title">whistledown_report_for_ffion.sh</div>
+            </div>
+
+            <!-- Terminal body contains all the content -->
+            <div class="terminal-body">
+                
+                <!-- Initial state: The question -->
+                <div id="question-state" class="state active">
+                    <!-- ASCII art for visual interest -->
+                    <pre class="ascii-art">
+  ╔══════════════════════════════════════════╗
+  ║  💻 VALENTINE REQUEST v1.0 💖          ║
+  ║        TARGET: FFION 💘               ║
+  ╚══════════════════════════════════════════╝
+                    </pre>
+                    
+                    <!-- Main headline with typing effect -->
+                    <h1 class="glitch" data-text="$ ./ask_valentine.sh">$ ./ask_valentine.sh</h1>
+                    
+                    <!-- Terminal-style output lines -->
+                    <div class="terminal-text">
+                        <p class="terminal-line">
+                            <span class="prompt">user@heart:~$</span> 
+                            <span class="command">cat feelings_for_ffion.txt</span>
+                        </p>
+                        <p class="output">Loading emotional database for Ffion...</p>
+                        <p class="output">Status: ❤️ heart_for_ffion.exe is running</p>
+                        <p class="output blinking-cursor">Processing special request for Ffion...</p>
+                    </div>
+
+                    <!-- The main question -->
+                    <div class="question-box">
+                        <h2>Ffion, will you be my Valentine? 🌹</h2>
+                        <p class="subtext">// TODO: Make Ffion's day unforgettable</p>
+                        <p class="bridgerton-note-intro">Dearest gentle reader,</p>
+                        <p class="bridgerton-note">It has come to this author&rsquo;s attention that this season&rsquo;s most anticipated question concerns Miss Ffion and one very hopeful gentleman named Dean.</p>
+                    </div>
+
+                    <!-- Action buttons -->
+                    <div class="button-container">
+                        <button id="yes-btn" class="btn btn-yes">
+                            ✓ return true;
+                        </button>
+                        <button id="no-btn" class="btn btn-no">
+                            ✗ return false;
+                        </button>
+                    </div>
+
+                    <!-- Fun status messages that appear when hovering No button -->
+                    <p id="hover-message" class="hover-message"></p>
+                </div>
+
+                <!-- Success state: Shown when Yes is clicked -->
+                <div id="success-state" class="state">
+                    <pre class="ascii-art success-art">
+  ╔═══════════════════════════════════╗
+  ║        🎉 SUCCESS! 🎉            ║
+  ║   Connection Established! 💕      ║
+  ╚═══════════════════════════════════╝
+                    </pre>
+
+                    <div class="terminal-text">
+                        <p class="terminal-line">
+                            <span class="prompt">user@heart:~$</span> 
+                            <span class="command">git commit -m "Ffion said yes"</span>
+                        </p>
+                        <p class="output success-text">[main 💖] Ffion accepted the pull request</p>
+                        <p class="output">1 heart (Ffion's) linked, infinite happiness inserted(+)</p>
+                        <p class="output">Building relationship with Ffion...</p>
+                        <p class="output">✓ Compilation successful!</p>
+                        <p class="output blinking-cursor">Ready for Valentine's Day adventures with Ffion...</p>
+                    </div>
+
+                    <div class="success-message">
+                        <h2>🎊 Exception Caught: HappinessOverflowErrorForFfion 🎊</h2>
+                        <p class="code-block">
+                            <code>if (answer === "yes") {<br>
+                            &nbsp;&nbsp;happiness.level = Infinity;<br>
+                            &nbsp;&nbsp;console.log("Ffion, you made my day! 💕");<br>
+                            }</code>
+                        </p>
+                        <p class="success-subtext">// Can't wait to celebrate with you, Ffion! 🌹</p>
+                        <p class="bridgerton-note-intro">Yours most sincerely,</p>
+                        <p class="bridgerton-note">Dean (and this most scandalously smitten terminal).</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Footer with customization hint and author credit -->
+        <div class="footer">
+            <p>Made with ❤️ and <code>&lt;/code&gt;</code> by Dean, especially for Ffion | <a href="https://github.com" target="_blank">Fork on GitHub</a></p>
+        </div>
+    </div>
+
+    <!-- Confetti canvas for celebration effect -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>
