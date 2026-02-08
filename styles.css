@@ -512,8 +512,8 @@ body::before {
 /* Dancing cat GIFs celebration layer */
 .dancing-cat {
     position: fixed;
-    width: 90px;
-    max-width: 26vw;
+    width: 140px;
+    max-width: 40vw;
     pointer-events: none;
     z-index: 1200;
     transform: translate(-50%, 0) scale(1);

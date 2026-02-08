@@ -340,30 +340,26 @@ document.addEventListener('DOMContentLoaded', function() {
     // ===== DANCING CAT GIFS =====
     // Spawns dancing cat GIFs all over the screen
     function startCats() {
-        const catCount = 18;
+        const cat = document.createElement('img');
+        cat.classList.add('dancing-cat');
+        cat.src = 'cat-dance.gif'; // Add this GIF file to your project root
+        cat.alt = 'Happy dancing cat';
 
-        for (let i = 0; i < catCount; i++) {
-            const cat = document.createElement('img');
-            cat.classList.add('dancing-cat');
-            cat.src = 'cat-dance.gif'; // Add this GIF file to your project root
-            cat.alt = 'Happy dancing cat';
+        // One bigger cat near the bottom centre-ish of the screen
+        const topPercent = 55;   // slightly above bottom
+        const leftPercent = 50;  // centred
+        const delay = 0.1;
 
-            // Random position across the viewport
-            const topPercent = 10 + Math.random() * 70;  // 10%–80% from top
-            const leftPercent = 8 + Math.random() * 84;  // 8%–92% from left
-            const delay = Math.random() * 1.5;           // Staggered animation start
+        cat.style.top = `${topPercent}vh`;
+        cat.style.left = `${leftPercent}vw`;
+        cat.style.animationDelay = `${delay}s`;
 
-            cat.style.top = `${topPercent}vh`;
-            cat.style.left = `${leftPercent}vw`;
-            cat.style.animationDelay = `${delay}s`;
+        document.body.appendChild(cat);
 
-            document.body.appendChild(cat);
-
-            // Remove cats after a while so they don't stay forever
-            setTimeout(() => {
-                cat.remove();
-            }, 8000 + delay * 1000);
-        }
+        // Remove cat after a while so it doesn't stay forever
+        setTimeout(() => {
+            cat.remove();
+        }, 9000);
     }
     
     // ===== HANDLE WINDOW RESIZE =====
