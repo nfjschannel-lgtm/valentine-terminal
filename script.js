@@ -560,6 +560,7 @@ function renderLetterStep(step) {
             chocs.addEventListener('click', function(event) {
                 event.stopPropagation();
                 chocs.classList.add('opened');
+                spawnGiftHearts(chocs, ['💝', '🍫']);
                 checkGiftsComplete();
             });
         }
@@ -568,6 +569,7 @@ function renderLetterStep(step) {
             flowers.addEventListener('click', function(event) {
                 event.stopPropagation();
                 flowers.classList.add('opened');
+                spawnGiftHearts(flowers, ['🌹', '💗']);
                 checkGiftsComplete();
             });
         }
@@ -589,6 +591,32 @@ function advanceLetterStep() {
         renderLetterStep(next);
     } else {
         bridgertonLetter.classList.add('fade-out');
+    }
+}
+
+// Small helper to spawn a few floating hearts above a gift
+function spawnGiftHearts(cardElement, emojis) {
+    if (!cardElement || !emojis || !emojis.length) return;
+
+    const rect = cardElement.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2 + window.scrollX;
+    const topY = rect.top + window.scrollY;
+
+    const count = 3;
+    for (let i = 0; i < count; i++) {
+        const span = document.createElement('span');
+        span.className = 'gift-heart';
+        span.textContent = emojis[i % emojis.length];
+
+        span.style.left = `${centerX + (Math.random() * 30 - 15)}px`;
+        span.style.top = `${topY - 4}px`;
+        span.style.animationDelay = `${i * 0.08}s`;
+
+        document.body.appendChild(span);
+
+        setTimeout(() => {
+            span.remove();
+        }, 1700 + i * 80);
     }
 }
 
