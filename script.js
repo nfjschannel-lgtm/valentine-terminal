@@ -486,6 +486,12 @@ function renderLetterStep(step) {
     const bridgertonLetter = document.getElementById('bridgerton-letter');
     if (!letterInner || !letterNext) return;
 
+    const hadContent = letterInner.innerHTML.trim().length > 0;
+
+    if (hadContent) {
+        letterInner.classList.add('page-fading');
+    }
+
     let html = '';
 
     if (step === 1) {
@@ -523,7 +529,18 @@ function renderLetterStep(step) {
         `;
     }
 
-    letterInner.innerHTML = html.trim();
+    const applyContent = () => {
+        letterInner.innerHTML = html.trim();
+        letterInner.classList.remove('page-fading');
+        letterInner.classList.add('page-enter');
+        setTimeout(() => letterInner.classList.remove('page-enter'), 280);
+    };
+
+    if (hadContent) {
+        setTimeout(applyContent, 200);
+    } else {
+        applyContent();
+    }
 
     // Keep data-step in sync for reliability on all devices
     if (bridgertonLetter) {
@@ -559,18 +576,22 @@ function renderLetterStep(step) {
         if (chocs) {
             chocs.addEventListener('click', function(event) {
                 event.stopPropagation();
-                chocs.classList.add('opened');
-                spawnGiftHearts(chocs, ['💝', '🍫']);
-                checkGiftsComplete();
+                if (!chocs.classList.contains('opened')) {
+                    chocs.classList.add('opened');
+                    spawnGiftHearts(chocs, ['💝', '🍫']);
+                    checkGiftsComplete();
+                }
             });
         }
 
         if (flowers) {
             flowers.addEventListener('click', function(event) {
                 event.stopPropagation();
-                flowers.classList.add('opened');
-                spawnGiftHearts(flowers, ['🌹', '💗']);
-                checkGiftsComplete();
+                if (!flowers.classList.contains('opened')) {
+                    flowers.classList.add('opened');
+                    spawnGiftHearts(flowers, ['🌹', '💗']);
+                    checkGiftsComplete();
+                }
             });
         }
     }
@@ -590,6 +611,7 @@ function advanceLetterStep() {
         bridgertonLetter.setAttribute('data-step', String(next));
         renderLetterStep(next);
     } else {
+        spawnLetterFarewellHearts();
         bridgertonLetter.classList.add('fade-out');
     }
 }
@@ -611,6 +633,33 @@ function spawnGiftHearts(cardElement, emojis) {
         setTimeout(() => {
             span.remove();
         }, 1700 + i * 80);
+    }
+}
+
+// Farewell hearts from the centre of the letter when it closes
+function spawnLetterFarewellHearts() {
+    const letterContent = document.getElementById('letter-content');
+    if (!letterContent) return;
+
+    const rect = letterContent.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2 + window.scrollX;
+    const centerY = rect.top + rect.height / 2 + window.scrollY;
+    const emojis = ['💘', '🌹', '🍫', '💖'];
+
+    for (let i = 0; i < 8; i++) {
+        const span = document.createElement('span');
+        span.className = 'gift-heart';
+        span.textContent = emojis[i % emojis.length];
+        span.style.left = `${centerX + (Math.random() * 80 - 40)}px`;
+        span.style.top = `${centerY + (Math.random() * 30 - 15)}px`;
+        span.style.fontSize = '1.4rem';
+        span.style.animationDelay = `${i * 0.04}s`;
+
+        document.body.appendChild(span);
+
+        setTimeout(() => {
+            span.remove();
+        }, 1800 + i * 60);
     }
 }
 

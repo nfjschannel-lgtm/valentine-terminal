@@ -477,6 +477,7 @@ body::before {
     position: relative;
     max-width: 480px;
     width: 90%;
+    perspective: 1200px;
 }
 
 .letter-envelope {
@@ -523,6 +524,28 @@ body::before {
     box-shadow: 0 6px 18px rgba(181, 58, 104, 0.6);
 }
 
+.letter-envelope:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 26px 60px rgba(0, 0, 0, 0.9);
+}
+
+.letter-seal::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: inherit;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    opacity: 0;
+    pointer-events: none;
+    animation: sealGlimmer 3.2s ease-in-out infinite;
+}
+
+@keyframes sealGlimmer {
+    0%, 80% { opacity: 0; transform: scale(0.9); }
+    90% { opacity: 1; transform: scale(1.02); }
+    100% { opacity: 0; transform: scale(1); }
+}
+
 .letter-envelope-intro {
     font-family: "Georgia", "Times New Roman", serif;
     font-style: italic;
@@ -566,6 +589,21 @@ body::before {
 
 .letter-inner {
     cursor: default;
+}
+
+.letter-inner.page-fading {
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.letter-inner.page-enter {
+    animation: letterPageEnter 0.28s ease-out;
+}
+
+@keyframes letterPageEnter {
+    0% { opacity: 0; transform: translateY(10px); }
+    100% { opacity: 1; transform: translateY(0); }
 }
 
 .letter-opening {
