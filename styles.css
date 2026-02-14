@@ -680,6 +680,8 @@ body::before {
     border: 1px solid rgba(148, 112, 76, 0.55);
     cursor: pointer;
     text-align: center;
+    position: relative;
+    overflow: visible;
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 
@@ -742,6 +744,7 @@ body::before {
     position: absolute;
     font-size: 1.1rem;
     pointer-events: none;
+    z-index: 2;
     animation: giftHeartFloat 1.4s ease-out forwards;
 }
 

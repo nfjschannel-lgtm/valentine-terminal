@@ -598,21 +598,15 @@ function advanceLetterStep() {
 function spawnGiftHearts(cardElement, emojis) {
     if (!cardElement || !emojis || !emojis.length) return;
 
-    const rect = cardElement.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2 + window.scrollX;
-    const topY = rect.top + window.scrollY;
-
     const count = 3;
     for (let i = 0; i < count; i++) {
         const span = document.createElement('span');
         span.className = 'gift-heart';
         span.textContent = emojis[i % emojis.length];
-
-        span.style.left = `${centerX + (Math.random() * 30 - 15)}px`;
-        span.style.top = `${topY - 4}px`;
+        span.style.left = `${50 + (Math.random() * 12 - 6)}%`;
+        span.style.top = '8px';
         span.style.animationDelay = `${i * 0.08}s`;
-
-        document.body.appendChild(span);
+        cardElement.appendChild(span);
 
         setTimeout(() => {
             span.remove();
