@@ -410,8 +410,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function showBridgertonLetter() {
         if (!bridgertonLetter) return;
         bridgertonLetter.classList.remove('hidden-letter');
+        bridgertonLetter.classList.remove('fade-out');
         bridgertonLetter.classList.add('visible-letter');
         letterStep = 1;
+        bridgertonLetter.setAttribute('data-step', '1');
         renderLetterStep(letterStep);
     }
 
@@ -481,6 +483,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function renderLetterStep(step) {
     const letterInner = document.getElementById('letter-inner');
     const letterNext = document.getElementById('letter-next');
+    const bridgertonLetter = document.getElementById('bridgerton-letter');
     if (!letterInner || !letterNext) return;
 
     let html = '';
@@ -522,6 +525,11 @@ function renderLetterStep(step) {
 
     letterInner.innerHTML = html.trim();
 
+    // Keep data-step in sync for reliability on all devices
+    if (bridgertonLetter) {
+        bridgertonLetter.setAttribute('data-step', String(step));
+    }
+
     // Update Next button label
     if (step < 3) {
         letterNext.textContent = 'Next ▸';
@@ -533,11 +541,26 @@ function renderLetterStep(step) {
     if (step === 3) {
         const chocs = document.getElementById('gift-chocolates');
         const flowers = document.getElementById('gift-flowers');
+        const letterContent = document.getElementById('letter-content');
+
+        function checkGiftsComplete() {
+            if (!chocs || !flowers || !letterContent) return;
+            if (chocs.classList.contains('opened') && flowers.classList.contains('opened')) {
+                if (!letterInner.querySelector('.letter-final-note')) {
+                    const note = document.createElement('p');
+                    note.className = 'letter-final-note';
+                    note.textContent = 'Until I can put all of this in your hands for real, I am right here with you in every heartbeat.';
+                    letterInner.appendChild(note);
+                }
+                letterContent.classList.add('letter-glow');
+            }
+        }
 
         if (chocs) {
             chocs.addEventListener('click', function(event) {
                 event.stopPropagation();
                 chocs.classList.add('opened');
+                checkGiftsComplete();
             });
         }
 
@@ -545,6 +568,7 @@ function renderLetterStep(step) {
             flowers.addEventListener('click', function(event) {
                 event.stopPropagation();
                 flowers.classList.add('opened');
+                checkGiftsComplete();
             });
         }
     }
@@ -556,8 +580,8 @@ function advanceLetterStep() {
     if (!bridgertonLetter || !letterNext) return;
 
     // Track current step via data attribute or infer from button text
-    const current = bridgertonLetter.getAttribute('data-step') ?
-        parseInt(bridgertonLetter.getAttribute('data-step'), 10) : 1;
+    const currentAttr = bridgertonLetter.getAttribute('data-step');
+    const current = currentAttr ? parseInt(currentAttr, 10) : 1;
 
     if (current < 3) {
         const next = current + 1;
